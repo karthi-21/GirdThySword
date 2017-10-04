@@ -12,9 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TabHost;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TabHost tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,55 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupTabHost();
+        setupLists();
+    }
+
+    private void setupLists() {
+
+    }
+
+    private void setupTabHost() {
+
+        TabHost.TabSpec spec; // Reusable TabSpec for each tab
+        tabHost.setup();
+
+        spec = tabHost.newTabSpec("Today");
+        spec.setIndicator("TODAY");
+        spec.setContent(R.id.tab1);
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("Overdue");
+        spec.setIndicator("OVERDUE");
+        spec.setContent(R.id.tab2);
+        tabHost.addTab(spec);
+
+        spec = tabHost.newTabSpec("All");
+        spec.setIndicator("ALL");
+        spec.setContent(R.id.tab3);
+        tabHost.addTab(spec);
+
+        //set tab which one you want to open first time 0 or 1 or 2
+        tabHost.setCurrentTab(0);
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                switch(tabId){
+                    case "Today":
+                        break;
+                    case "Overdue":
+                        break;
+                    case "All":
+                        break;
+                    default:
+                }
+            }
+        });
     }
 
     @Override
