@@ -12,12 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TabHost tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
+    TabHost tabHost;
+    ListView today;
+    ListView overdue;
+    ListView all;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,11 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
+        today = (ListView) findViewById(R.id.today_list);
+        overdue = (ListView) findViewById(R.id.overdue_list);
+        all = (ListView) findViewById(R.id.all_list);
     }
 
     @Override
@@ -53,7 +62,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setupLists() {
-
     }
 
     private void setupTabHost() {
@@ -71,9 +79,14 @@ public class HomeActivity extends AppCompatActivity
         spec.setContent(R.id.tab2);
         tabHost.addTab(spec);
 
+        spec = tabHost.newTabSpec("Tomorrow");
+        spec.setIndicator("TOMORROW");
+        spec.setContent(R.id.tab3);
+        tabHost.addTab(spec);
+
         spec = tabHost.newTabSpec("All");
         spec.setIndicator("ALL");
-        spec.setContent(R.id.tab3);
+        spec.setContent(R.id.tab4);
         tabHost.addTab(spec);
 
         //set tab which one you want to open first time 0 or 1 or 2
@@ -85,6 +98,8 @@ public class HomeActivity extends AppCompatActivity
                     case "Today":
                         break;
                     case "Overdue":
+                        break;
+                    case "Tomorrow":
                         break;
                     case "All":
                         break;
@@ -132,17 +147,21 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_bible) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_rewards) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_statistics) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_help) {
+
+        } else if (id == R.id.nav_settings) {
+
+        } else if (id == R.id.nav_about) {
 
         }
 
