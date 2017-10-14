@@ -21,6 +21,14 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BibleActivity"
+            android:label="@string/title_activity_bible"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RewardsActivity"
+            android:label="@string/title_activity_rewards"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
