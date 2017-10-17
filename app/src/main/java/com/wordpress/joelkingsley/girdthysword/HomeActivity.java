@@ -4,17 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,7 +31,19 @@ public class HomeActivity extends AppCompatActivity
     TabHost tabHost;
     ListView today;
     ListView overdue;
+    ListView tomorrow;
     ListView all;
+    FloatingActionButton fab;
+    FloatingActionButton fab_add;
+    FloatingActionButton fab_delete;
+    TextView tv_add;
+    TextView tv_delete;
+
+    boolean fab_status;
+    List<Chunk> todayChunks;
+    List<Chunk> overdueChunks;
+    List<Chunk> tomorrowChunks;
+    List<Chunk> allChunks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +51,6 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +64,14 @@ public class HomeActivity extends AppCompatActivity
         tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
         today = (ListView) findViewById(R.id.today_list);
         overdue = (ListView) findViewById(R.id.overdue_list);
+        tomorrow = (ListView) findViewById(R.id.tomorrow_list);
         all = (ListView) findViewById(R.id.all_list);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
+        fab_delete = (FloatingActionButton) findViewById(R.id.fab_delete);
+        tv_add = (TextView) findViewById(R.id.tv_add);
+        tv_delete = (TextView) findViewById(R.id.tv_delete);
 
         setupTabHost();
     }
@@ -61,10 +80,122 @@ public class HomeActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
-        setupLists();
+        try {
+            setupLists();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        setupFabs();
     }
 
-    private void setupLists() {
+    private void setupLists() throws ParseException {
+        todayChunks = new ArrayList<Chunk>();
+        overdueChunks = new ArrayList<Chunk>();
+        tomorrowChunks = new ArrayList<Chunk>();
+
+        DBHandler dbHandler = new DBHandler(this);
+        allChunks = dbHandler.getAllChunks();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar ca = Calendar.getInstance();
+        String currDate = df.format(ca.getTime());
+        Date currDateObj = df.parse(currDate);
+        ca.add(Calendar.DATE,1);
+        String tomDate = df.format(ca.getTime());
+        Date tomDateObj = df.parse(tomDate);
+        for (Chunk c : allChunks) {
+            Log.d("Reading:",c.toString());
+            if(!c.getNextDateOfReview().equals("NA")) {
+                Date dateObj = df.parse(c.getNextDateOfReview());
+
+                if(currDateObj.equals(dateObj)){
+                    todayChunks.add(c);
+                }
+                else if(dateObj.before(currDateObj)){
+                    overdueChunks.add(c);
+                }
+                else if(currDateObj.equals(tomDateObj)) {
+                    tomorrowChunks.add(c);
+                }
+            }
+        }
+
+        CustomListAdapter1 todayAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,todayChunks);
+        today.setAdapter(todayAdapter);
+        today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);
+                intent.putExtra("EXTRA_CHUNK_ID", todayChunks.get(i).get_id());
+                startActivity(intent);
+            }
+        });
+
+        CustomListAdapter1 overdueAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,overdueChunks);
+        today.setAdapter(overdueAdapter);
+        today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);
+                intent.putExtra("EXTRA_CHUNK_ID", overdueChunks.get(i).get_id());
+                startActivity(intent);
+            }
+        });
+
+        CustomListAdapter1 tomorrowAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,tomorrowChunks);
+        today.setAdapter(tomorrowAdapter);
+        today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);
+                intent.putExtra("EXTRA_CHUNK_ID", tomorrowChunks.get(i).get_id());
+                startActivity(intent);
+            }
+        });
+
+        CustomListAdapter1 allAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,allChunks);
+        all.setAdapter(allAdapter);
+
+    }
+
+    private void setupFabs() {
+        fab_status = false;
+        fab_hide();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                        */
+                if(fab_status == false) {
+                    fab_show();
+                    fab_status = true;
+                }
+                else {
+                    fab_hide();
+                    fab_status = false;
+                }
+            }
+
+
+        });
+
+    }
+
+    private void fab_show() {
+        fab_add.show();
+        fab_delete.show();
+        tv_add.setVisibility(View.VISIBLE);
+        tv_delete.setVisibility(View.VISIBLE);
+    }
+
+    private void fab_hide() {
+        fab_add.hide();
+        fab_delete.hide();
+        tv_add.setVisibility(View.INVISIBLE);
+        tv_delete.setVisibility(View.INVISIBLE);
     }
 
     private void setupTabHost() {

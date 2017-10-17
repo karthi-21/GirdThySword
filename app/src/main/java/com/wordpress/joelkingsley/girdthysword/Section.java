@@ -9,23 +9,23 @@ public class Section {
     long _id;
     String _book_name;
     int _chap_num;
-    int _start_verse;
-    int _end_verse;
+    int _start_verse_num;
+    int _end_verse_num;
     int _sec_id;
 
-    public Section(String _book_name, int _chap_num, int _start_verse, int _end_verse, int _sec_id) {
+    public Section(String _book_name, int _chap_num, int _start_verse_num, int _end_verse_num, int _sec_id) {
         this._book_name = _book_name;
         this._chap_num = _chap_num;
-        this._start_verse = _start_verse;
-        this._end_verse = _end_verse;
+        this._start_verse_num = _start_verse_num;
+        this._end_verse_num = _end_verse_num;
         this._sec_id = _sec_id;
     }
 
     public Section() {
         this._book_name = "BN NA";
         this._chap_num = -123;
-        this._start_verse = -1;
-        this._end_verse = -1;
+        this._start_verse_num = -1;
+        this._end_verse_num = -1;
         this._sec_id = 0;
     }
 
@@ -54,19 +54,19 @@ public class Section {
     }
 
     public int get_start_verse_num() {
-        return _start_verse;
+        return _start_verse_num;
     }
 
-    public void set_start_verse(int _start_verse) {
-        this._start_verse = _start_verse;
+    public void set_start_verse_num(int _start_verse_num) {
+        this._start_verse_num = _start_verse_num;
     }
 
     public int get_end_verse_num() {
-        return _end_verse;
+        return _end_verse_num;
     }
 
-    public void set_end_verse(int _end_verse) {
-        this._end_verse = _end_verse;
+    public void set_end_verse_num(int _end_verse_num) {
+        this._end_verse_num = _end_verse_num;
     }
 
     public int get_sec_id() {
