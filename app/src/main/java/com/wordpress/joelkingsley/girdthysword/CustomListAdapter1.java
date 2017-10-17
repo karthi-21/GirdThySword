@@ -53,8 +53,8 @@ public class CustomListAdapter1 extends ArrayAdapter<Chunk>{
 
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_menu_bible);
         imageView.setImageBitmap(bitmap);
-        heading.setText("Heading");
-        subheading.setText("Subheading");
+        heading.setText(objects.get(position).toString());
+        subheading.setText(objects.get(position).getNextDateOfReview());
 
         return rowView;
     }

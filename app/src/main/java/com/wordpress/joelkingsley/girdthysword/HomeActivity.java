@@ -40,10 +40,7 @@ public class HomeActivity extends AppCompatActivity
     TextView tv_delete;
 
     boolean fab_status;
-    List<Chunk> todayChunks;
-    List<Chunk> overdueChunks;
-    List<Chunk> tomorrowChunks;
-    List<Chunk> allChunks;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +79,7 @@ public class HomeActivity extends AppCompatActivity
 
         try {
             setupLists();
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -89,37 +87,56 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setupLists() throws ParseException {
+
+        final List<Chunk> todayChunks;
+        final List<Chunk> overdueChunks;
+        final List<Chunk> tomorrowChunks;
+        List<Chunk> allChunks;
+
+        DBHandler dbHandler = new DBHandler(this);
+
+        dbHandler.deleteAllChunks();
+        dbHandler.addChunk(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
+        dbHandler.addChunk(new Chunk(1,"Romans",4,5,7, "18/10/2017", 1,2,false));
+        dbHandler.addChunk(new Chunk(1, "Romans",1,1,3, "10/10/2017", 1,3,false));
+
         todayChunks = new ArrayList<Chunk>();
         overdueChunks = new ArrayList<Chunk>();
         tomorrowChunks = new ArrayList<Chunk>();
-
-        DBHandler dbHandler = new DBHandler(this);
         allChunks = dbHandler.getAllChunks();
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar ca = Calendar.getInstance();
         String currDate = df.format(ca.getTime());
-        Date currDateObj = df.parse(currDate);
+
         ca.add(Calendar.DATE,1);
         String tomDate = df.format(ca.getTime());
-        Date tomDateObj = df.parse(tomDate);
+
         for (Chunk c : allChunks) {
             Log.d("Reading:",c.toString());
-            if(!c.getNextDateOfReview().equals("NA")) {
-                Date dateObj = df.parse(c.getNextDateOfReview());
 
+            if(!c.getNextDateOfReview().equals("NA")) {
+                Log.d("CurrDate:",currDate);
+                Log.d("DateObj:",c.getNextDateOfReview());
+                Date dateObj = df.parse(c.getNextDateOfReview());
+                Date currDateObj = df.parse(currDate);
+                Date tomDateObj = df.parse(tomDate);
                 if(currDateObj.equals(dateObj)){
+                    Log.d("Today",c.toString());
                     todayChunks.add(c);
                 }
                 else if(dateObj.before(currDateObj)){
                     overdueChunks.add(c);
                 }
-                else if(currDateObj.equals(tomDateObj)) {
+                else if(tomDateObj.equals(dateObj)) {
                     tomorrowChunks.add(c);
                 }
             }
         }
 
+        for(Chunk c:todayChunks) {
+            Log.d("TodayList:",c.toString());
+        }
         CustomListAdapter1 todayAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,todayChunks);
         today.setAdapter(todayAdapter);
         today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -132,8 +149,8 @@ public class HomeActivity extends AppCompatActivity
         });
 
         CustomListAdapter1 overdueAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,overdueChunks);
-        today.setAdapter(overdueAdapter);
-        today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        overdue.setAdapter(overdueAdapter);
+        overdue.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);
@@ -143,8 +160,8 @@ public class HomeActivity extends AppCompatActivity
         });
 
         CustomListAdapter1 tomorrowAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,tomorrowChunks);
-        today.setAdapter(tomorrowAdapter);
-        today.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tomorrow.setAdapter(tomorrowAdapter);
+        tomorrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);

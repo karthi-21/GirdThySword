@@ -76,7 +76,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="94dp"
         android:layout_marginEnd="70dp"
-        android:text="Add Section"
+        android:text="@string/add_section"
         android:visibility="visible"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right" />
@@ -88,7 +88,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="140dp"
         android:layout_marginEnd="70dp"
-        android:text="Delete Section"
+        android:text="@string/delete_section"
         android:visibility="visible"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|right" />
