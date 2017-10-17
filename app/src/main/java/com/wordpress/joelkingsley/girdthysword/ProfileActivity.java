@@ -14,13 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class BibleActivity extends AppCompatActivity
+public class ProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bible);
+        setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,7 +56,7 @@ public class BibleActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.bible, menu);
+        getMenuInflater().inflate(R.menu.profile, menu);
         return true;
     }
 
@@ -82,19 +82,19 @@ public class BibleActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(BibleActivity.this,HomeActivity.class);
+            Intent intent = new Intent(ProfileActivity.this,HomeActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_bible) {
-
+            Intent intent = new Intent(ProfileActivity.this,BibleActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_rewards) {
-            Intent intent = new Intent(BibleActivity.this,RewardsActivity.class);
+            Intent intent = new Intent(ProfileActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(BibleActivity.this,StatsActivity.class);
+            Intent intent = new Intent(ProfileActivity.this,StatsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(BibleActivity.this,ProfileActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_settings) {

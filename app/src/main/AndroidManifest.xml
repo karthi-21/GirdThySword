@@ -29,6 +29,14 @@
         <activity
             android:name=".RewardsActivity"
             android:label="@string/title_activity_rewards"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

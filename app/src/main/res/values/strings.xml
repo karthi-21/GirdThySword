@@ -15,4 +15,6 @@
     <string name="send">Send</string>
     <string name="title_activity_bible">Bible</string>
     <string name="title_activity_rewards">Rewards</string>
+    <string name="title_activity_stats">Statistics</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>

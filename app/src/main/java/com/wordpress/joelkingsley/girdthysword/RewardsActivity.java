@@ -1,5 +1,6 @@
 package com.wordpress.joelkingsley.girdthysword;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -80,17 +81,25 @@ public class RewardsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_home) {
+            Intent intent = new Intent(RewardsActivity.this,HomeActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_bible) {
+            Intent intent = new Intent(RewardsActivity.this,BibleActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_rewards) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_statistics) {
+            Intent intent = new Intent(RewardsActivity.this,StatsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(RewardsActivity.this,ProfileActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_about) {
 
         }
 
