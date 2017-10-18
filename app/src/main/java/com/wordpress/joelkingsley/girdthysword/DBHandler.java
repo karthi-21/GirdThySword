@@ -141,6 +141,13 @@ public class DBHandler extends SQLiteAssetHelper {
         Log.d("Function:","Deleted " + secId);
     }
 
+    public void deleteAllSections(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SECTION,null,null);
+        Log.d("Function:","Delete All Sections");
+
+    }
+
     public int getMaxSecId(){
         int maxSecId=-1;
         String selectQuery = "SELECT " + C_KEY_SEC_ID + " FROM " + TABLE_SECTION + " ORDER BY " + C_KEY_SEC_ID;

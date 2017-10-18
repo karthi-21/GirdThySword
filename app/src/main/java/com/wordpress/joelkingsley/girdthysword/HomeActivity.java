@@ -96,9 +96,14 @@ public class HomeActivity extends AppCompatActivity
         DBHandler dbHandler = new DBHandler(this);
 
         dbHandler.deleteAllChunks();
+        dbHandler.deleteAllSections();
+
         dbHandler.addChunk(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
         dbHandler.addChunk(new Chunk(1,"Romans",4,5,7, "18/10/2017", 1,2,false));
         dbHandler.addChunk(new Chunk(1, "Romans",1,1,3, "10/10/2017", 1,3,false));
+        dbHandler.addSection(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
+        dbHandler.addSection(new Chunk(1,"Romans",4,5,7, "18/10/2017", 1,2,false));
+        dbHandler.addSection(new Chunk(1, "Romans",1,1,3, "10/10/2017", 1,3,false));
 
         todayChunks = new ArrayList<Chunk>();
         overdueChunks = new ArrayList<Chunk>();
@@ -161,16 +166,8 @@ public class HomeActivity extends AppCompatActivity
 
         CustomListAdapter1 tomorrowAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,tomorrowChunks);
         tomorrow.setAdapter(tomorrowAdapter);
-        tomorrow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(HomeActivity.this,ReviewActivity.class);
-                intent.putExtra("EXTRA_CHUNK_ID", tomorrowChunks.get(i).get_id());
-                startActivity(intent);
-            }
-        });
 
-        CustomListAdapter1 allAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list1,allChunks);
+        CustomListAdapter1 allAdapter = new CustomListAdapter1(this,R.layout.chunk_custom_list2,allChunks);
         all.setAdapter(allAdapter);
 
     }

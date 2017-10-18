@@ -45,16 +45,30 @@ public class CustomListAdapter1 extends ArrayAdapter<Chunk>{
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(resource,parent,false);
+        View rowView = inflater.inflate(this.resource,parent,false);
 
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
-        TextView heading = (TextView) rowView.findViewById(R.id.heading);
-        TextView subheading = (TextView) rowView.findViewById(R.id.subheading);
+        if(this.resource == R.layout.chunk_custom_list1) {
+            ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
+            TextView heading = (TextView) rowView.findViewById(R.id.heading);
+            TextView subheading = (TextView) rowView.findViewById(R.id.subheading);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_menu_bible);
-        imageView.setImageBitmap(bitmap);
-        heading.setText(objects.get(position).toString());
-        subheading.setText(objects.get(position).getNextDateOfReview());
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_menu_bible);
+            imageView.setImageBitmap(bitmap);
+            heading.setText(this.heading.get(position));
+            subheading.setText(this.subheading.get(position));
+        }
+        else if(this.resource == R.layout.chunk_custom_list2) {
+            ImageView imageView = (ImageView) rowView.findViewById(R.id.image);
+            TextView heading = (TextView) rowView.findViewById(R.id.heading);
+            TextView subheading = (TextView) rowView.findViewById(R.id.subheading);
+            TextView date = (TextView) rowView.findViewById(R.id.date);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_menu_bible);
+            imageView.setImageBitmap(bitmap);
+            heading.setText(this.heading.get(position));
+            subheading.setText(this.subheading.get(position));
+            date.setText(this.objects.get(position).getNextDateOfReview());
+        }
 
         return rowView;
     }
