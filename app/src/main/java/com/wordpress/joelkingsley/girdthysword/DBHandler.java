@@ -277,7 +277,7 @@ public class DBHandler extends SQLiteAssetHelper {
         Log.d("Select:",selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        if(cursor.moveToFirst()){
+        if(cursor.moveToLast()){
             maxSecId = Integer.parseInt(cursor.getString(0));
         }
         Log.d("MaxSecId:","MaxSecId=" + maxSecId);
