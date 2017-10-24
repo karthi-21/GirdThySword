@@ -157,8 +157,11 @@ public class NewSectionActivity extends AppCompatActivity {
         List<Integer> verseList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(this);
         availEndVerses = new ArrayList<Integer>();
-        for(int i=startVersePos;i<availStartVerses.size()-1;i++){
-            if(availStartVerses.get(i)+1 == availStartVerses.get(i+1)){
+        for(int i=startVersePos;i<availStartVerses.size();i++){
+            if(i==availStartVerses.size()-1){
+                availEndVerses.add(availStartVerses.get(i));
+            }
+            else if(availStartVerses.get(i)+1 == availStartVerses.get(i+1)){
                 availEndVerses.add(availStartVerses.get(i));
             }
             else{
