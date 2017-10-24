@@ -84,6 +84,15 @@ public class DBHandler extends SQLiteAssetHelper {
         return count;
     }
 
+    public int getNumofChap(String bookName){
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQuery = "SELECT DISTINCT " + B_KEY_CHAP_NUM + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"';
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
     public String getVerse(String bookName, int chapNum, int verseNum) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + B_KEY_VERSE_TEXT + " FROM " + TABLE_BIBLE + " WHERE "
@@ -117,21 +126,135 @@ public class DBHandler extends SQLiteAssetHelper {
         return chapter;
     }
 
+    public boolean addedBook(String s) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQueryTotal = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + s + '"';
+        String selectQueryAdded = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + s + '"' + " AND " + B_KEY_MEMORY + ">" + "0";
+        Cursor cursorTotal = db.rawQuery(selectQueryTotal,null);
+        Cursor cursorAdded = db.rawQuery(selectQueryAdded,null);
+        Log.d("addedBook():",s);
+        if(cursorTotal.getCount() == cursorAdded.getCount()){
+            cursorAdded.close();
+            cursorTotal.close();
+            return true;
+        }
+        else{
+            cursorAdded.close();
+            cursorTotal.close();
+            return false;
+        }
+    }
+
+    public boolean addedChapter(String bookName, int chapNo){
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQueryTotal = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNo;
+        String selectQueryAdded = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNo + " AND " + B_KEY_MEMORY + ">" + "0";
+        Cursor cursorTotal = db.rawQuery(selectQueryTotal,null);
+        Cursor cursorAdded = db.rawQuery(selectQueryAdded,null);
+
+        Log.d("addedChapter():",bookName + " " + chapNo);
+
+        if(cursorTotal.getCount() == cursorAdded.getCount()){
+            cursorAdded.close();
+            cursorTotal.close();
+            return true;
+        }
+        else{
+            cursorAdded.close();
+            cursorTotal.close();
+            return false;
+        }
+    }
+
+    public List<Integer> getAvailableVersesOfChap(String bookName,int chapNum){
+        List<Integer> availVerses = new ArrayList<>();
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQuery = "SELECT " + B_KEY_VERSE_NUM + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNum + " AND " + B_KEY_MEMORY + "=" + "0" + " ORDER BY " + B_KEY_VERSE_NUM;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        if(cursor.moveToFirst()){
+            do{
+                availVerses.add(Integer.parseInt(cursor.getString(0)));
+            }while(cursor.moveToNext());
+        }
+        return availVerses;
+    }
+
+    public ReadableVerse getReadableVerse(String bookName,int chapNum,int verseNum){
+        ReadableVerse readableVerse = new ReadableVerse();
+        String selectQuery = "SELECT * FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " +'"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNum + " AND " + B_KEY_VERSE_NUM + "=" + verseNum;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery,null);
+        Log.d("getReadableVerse:",selectQuery);
+        if(cursor.moveToFirst()){
+            do{
+                readableVerse.set_id(Long.parseLong(cursor.getString(0)));
+                readableVerse.set_book_name(cursor.getString(1));
+                readableVerse.set_chap_num(Integer.parseInt(cursor.getString(2)));
+                readableVerse.set_verse_num(Integer.parseInt(cursor.getString(3)));
+                readableVerse.set_verse_text(cursor.getString(4));
+                readableVerse.set_memory(Integer.parseInt(cursor.getString(5)));
+            }while(cursor.moveToNext());
+        }
+
+        return readableVerse;
+    }
+
+    public void setMemoryToAdded(Section section){
+        String bookName = section.get_book_name();
+        int chapNum = section.get_chap_num();
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        Log.d("setMemoryToAdded:",section.toString());
+        for(int i=section.get_start_verse_num();i<=section.get_end_verse_num();i++){
+            ReadableVerse readableVerse = getReadableVerse(bookName,chapNum,i);
+
+            cv.put(B_KEY_BOOK_NAME,bookName);
+            cv.put(B_KEY_CHAP_NUM,chapNum);
+            cv.put(B_KEY_VERSE_NUM,i);
+            cv.put(B_KEY_VERSE_TEXT,readableVerse._verse_text);
+            cv.put(B_KEY_MEMORY,1);
+
+            db.update(TABLE_BIBLE,cv,"id="+readableVerse.get_id(),null);
+        }
+    }
+
+    public void setMemoryToNotAdded(Section section){
+        String bookName = section.get_book_name();
+        int chapNum = section.get_chap_num();
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        Log.d("setMemoryToAdded:",section.toString());
+        for(int i=section.get_start_verse_num();i<=section.get_end_verse_num();i++){
+            ReadableVerse readableVerse = getReadableVerse(bookName,chapNum,i);
+
+            cv.put(B_KEY_BOOK_NAME,bookName);
+            cv.put(B_KEY_CHAP_NUM,chapNum);
+            cv.put(B_KEY_VERSE_NUM,i);
+            cv.put(B_KEY_VERSE_TEXT,readableVerse._verse_text);
+            cv.put(B_KEY_MEMORY,0);
+
+            db.update(TABLE_BIBLE,cv,"id="+readableVerse.get_id(),null);
+        }
+    }
+
+
     //Section Functions
     //-----------------
-    public void addSection(Chunk chunk){
+    public void addSection(Section section){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(S_KEY_BOOK_NAME,chunk.getBookName());
-        values.put(S_KEY_CHAP_NUM,chunk.getChapNum());
-        values.put(S_KEY_START_VERSE_NUM,chunk.getStartVerseNum());
-        values.put(S_KEY_END_VERSE_NUM,chunk.getEndVerseNum());
-        values.put(S_KEY_SEC_ID,chunk.getSecId());
+        values.put(S_KEY_BOOK_NAME,section.get_book_name());
+        values.put(S_KEY_CHAP_NUM,section.get_chap_num());
+        values.put(S_KEY_START_VERSE_NUM,section.get_start_verse_num());
+        values.put(S_KEY_END_VERSE_NUM,section.get_end_verse_num());
+        values.put(S_KEY_SEC_ID,section.get_sec_id());
 
         db.insert(TABLE_SECTION,null,values);
         db.close();
-        Log.d("Function:","Add Section " + chunk.toString());
+        Log.d("Function:","Add Section " + section.toString());
     }
 
     public void deleteSection(long secId){
@@ -442,4 +565,6 @@ public class DBHandler extends SQLiteAssetHelper {
         }
         return true;
     }
+
+
 }

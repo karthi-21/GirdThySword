@@ -102,7 +102,6 @@
         android:id="@+id/spinner3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/startVerse"
         android:layout_alignRight="@id/startVerse"
         android:layout_below="@+id/startVerse" />
 
@@ -111,15 +110,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/endVerse"
-        android:layout_alignRight="@id/endVerse"
         android:layout_below="@+id/startVerse" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner4"
-        android:layout_marginTop="11dp"
+
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
         android:text="Add"
         android:layout_centerHorizontal="true" />
 

@@ -95,15 +95,16 @@ public class HomeActivity extends AppCompatActivity
 
         DBHandler dbHandler = new DBHandler(this);
 
-        dbHandler.deleteAllChunks();
-        dbHandler.deleteAllSections();
+        //dbHandler.deleteAllChunks();
+        //dbHandler.deleteAllSections();
 
-        dbHandler.addChunk(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
+        /*dbHandler.addChunk(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
         dbHandler.addChunk(new Chunk(1,"Romans",4,5,7, "18/10/2017", 1,2,false));
         dbHandler.addChunk(new Chunk(1, "Romans",1,1,3, "10/10/2017", 1,3,false));
-        dbHandler.addSection(new Chunk(1,"John",3,16,18, "17/10/2017", 1,1, false));
-        dbHandler.addSection(new Chunk(1,"Romans",4,5,7, "18/10/2017", 1,2,false));
-        dbHandler.addSection(new Chunk(1, "Romans",1,1,3, "10/10/2017", 1,3,false));
+        dbHandler.addSection(new Section("John",3,16,18,1));
+        dbHandler.addSection(new Section("Romans",4,5,7,2));
+        dbHandler.addSection(new Section("Romans",1,1,3,3));*/
+
 
         todayChunks = new ArrayList<Chunk>();
         overdueChunks = new ArrayList<Chunk>();

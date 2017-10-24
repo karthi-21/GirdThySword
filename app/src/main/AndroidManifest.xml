@@ -38,17 +38,25 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ReviewActivity" />
+        <activity
+            android:name=".ReviewActivity"
+            android:label="@string/title_activity_review"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
         <activity
             android:name=".NewSectionActivity"
             android:label="@string/title_activity_new_section"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity"
-                />
+                android:value=".HomeActivity" />
         </activity>
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
