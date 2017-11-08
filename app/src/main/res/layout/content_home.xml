@@ -35,7 +35,9 @@
                     <TabWidget
                         android:id="@android:id/tabs"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorSword"
+                        android:showDividers="middle"/>
 
                 </HorizontalScrollView>
 
@@ -45,7 +47,8 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layTab">
+                android:layout_below="@id/layTab"
+                android:background="@color/colorSword">
 
                 <LinearLayout
                     android:id="@+id/tab1"

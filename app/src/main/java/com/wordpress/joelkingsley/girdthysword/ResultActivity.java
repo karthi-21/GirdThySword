@@ -26,7 +26,7 @@ public class ResultActivity extends AppCompatActivity {
         long id = getIntent().getLongExtra("EXTRA_CHUNK_ID",-1);
         Chunk chunk = dbHandler.getChunk(id);
         float totalMatchScore = getIntent().getFloatExtra("EXTRA_TOTAL_MATCH_SCORE",0);
-        int numOfVerses = getIntent().getIntExtra("EXTRA_NO_OF_VERSES",3);
+        int numOfReviews = getIntent().getIntExtra("EXTRA_NO_OF_REVIEWS",3);
 
         percent = (TextView) findViewById(R.id.percentage);
         space = (TextView) findViewById(R.id.space);
@@ -34,7 +34,7 @@ public class ResultActivity extends AppCompatActivity {
 
         done = (Button) findViewById(R.id.done);
 
-        int percentage = (int)(totalMatchScore/numOfVerses);
+        int percentage = (int)(totalMatchScore/numOfReviews);
         this.percent.setText(Integer.toString(percentage));
         if(percentage>=85){
             int space = chunk.getSpace();

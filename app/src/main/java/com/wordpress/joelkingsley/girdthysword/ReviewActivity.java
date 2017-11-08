@@ -21,6 +21,7 @@ public class ReviewActivity extends AppCompatActivity {
     //General
     Chunk chunk;
     Long id;
+    int count=0;
     List<ReadableVerse> readableVerseList = new ArrayList<ReadableVerse>();
     List<StringTokenizer> tokenList = new ArrayList<StringTokenizer>();
     List<String> speakableText = new ArrayList<String>();
@@ -32,6 +33,7 @@ public class ReviewActivity extends AppCompatActivity {
     TextView vt;
     TextView st;
     TextView completed;
+    TextView heading;
 
     FloatingActionButton record;
     Button continue_btn;
@@ -48,6 +50,7 @@ public class ReviewActivity extends AppCompatActivity {
         vt = (TextView) findViewById(R.id.verseText);
         st = (TextView) findViewById(R.id.spokenText);
         completed = (TextView) findViewById(R.id.completed);
+        heading = (TextView) findViewById(R.id.heading);
 
         record = (FloatingActionButton) findViewById(R.id.record);
         continue_btn = (Button) findViewById(R.id.continue_btn);
@@ -67,7 +70,7 @@ public class ReviewActivity extends AppCompatActivity {
                 text.append(tokenList.get(i).nextToken());
                 text.append(" ");
             }
-            speakableText.add(text.toString().toLowerCase());
+            speakableText.add(text.toString().trim());
         }
         currentVerseIndex = 0;
         totalMatchScore = 0;
@@ -82,6 +85,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void review() {
         if(currentVerseIndex<readableVerseList.size()){
+            heading.setText(readableVerseList.get(currentVerseIndex).toString());
             vt.setText(speakableText.get(currentVerseIndex));
             st.setText("");
             completed.setText(currentVerseIndex + "/" + readableVerseList.size() + " Completed");
@@ -90,8 +94,8 @@ public class ReviewActivity extends AppCompatActivity {
             record.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    vt.setVisibility(View.INVISIBLE);
                     promptSpeechInput();
-
                 }
             });
         }
@@ -99,9 +103,8 @@ public class ReviewActivity extends AppCompatActivity {
             Intent intent = new Intent(ReviewActivity.this,ResultActivity.class);
             intent.putExtra("EXTRA_CHUNK_ID",this.id);
             intent.putExtra("EXTRA_TOTAL_MATCH_SCORE",totalMatchScore);
-            intent.putExtra("EXTRA_NO_OF_VERSES",readableVerseList.size());
+            intent.putExtra("EXTRA_NO_OF_REVIEWS",count);
             startActivity(intent);
-
         }
 
     }
@@ -116,7 +119,7 @@ public class ReviewActivity extends AppCompatActivity {
             Toast.makeText(ReviewActivity.this, "Awesome!! : " + matchPercentage + "% Accuracy",
                     Toast.LENGTH_LONG).show();
         }
-        if(matchPercentage>=65){
+        else if(matchPercentage>=60 && matchPercentage<85){
             totalMatchScore+= matchPercentage;
             Toast.makeText(ReviewActivity.this, "Good Job! : " + matchPercentage + "% Accuracy",
                     Toast.LENGTH_LONG).show();
@@ -126,13 +129,13 @@ public class ReviewActivity extends AppCompatActivity {
             Toast.makeText(ReviewActivity.this, "Try Again : " + matchPercentage + "% Accuracy",
                     Toast.LENGTH_LONG).show();
         }
-        record.setVisibility(View.INVISIBLE);
         continue_btn.setVisibility(View.VISIBLE);
         continue_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentVerseIndex++;
                 review();
+                count++;
             }
         });
     }
@@ -168,6 +171,7 @@ public class ReviewActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     st.setText(result.get(0).toLowerCase());
                     calculate();
+                    vt.setVisibility(View.VISIBLE);
                 }
                 break;
             case REQ_CODE_CONTINUE:

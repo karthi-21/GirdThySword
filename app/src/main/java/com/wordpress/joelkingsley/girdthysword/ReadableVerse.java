@@ -61,4 +61,10 @@ public class ReadableVerse {
     public void set_memory(int _memory) {
         this._memory = _memory;
     }
+
+    @Override
+    public String toString() {
+        return _book_name + " " + _chap_num +
+                ":" + _verse_num;
+    }
 }

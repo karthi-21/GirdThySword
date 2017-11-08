@@ -13,8 +13,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Night" parent="ThemeOverlay.AppCompat.Dark">
+
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="whiteText">
+        <item name="android:textColor">#ffffff</item>
+    </style>
 
 </resources>

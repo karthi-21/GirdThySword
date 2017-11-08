@@ -4,40 +4,42 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_home"
-            android:title="Home" />
+            android:icon="@drawable/ic_menu_home_dark"
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_bible"
-            android:icon="@drawable/ic_menu_bible"
-            android:title="Bible" />
+            android:icon="@drawable/ic_menu_bible_dark"
+            android:title="@string/bible" />
         <item
             android:id="@+id/nav_rewards"
-            android:icon="@drawable/ic_menu_rewards"
-            android:title="Rewards" />
+            android:icon="@drawable/ic_menu_rewards_dark"
+            android:title="@string/rewards" />
         <item
             android:id="@+id/nav_statistics"
-            android:icon="@drawable/ic_menu_statistics"
-            android:title="Statistics" />
+            android:icon="@drawable/ic_menu_statistics_dark"
+            android:title="@string/statistics" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_profile"
-            android:title="Profile"/>
+            android:icon="@drawable/ic_menu_profile_dark"
+            android:title="@string/profile"/>
     </group>
 
-    <item android:title="About">
+    <item
+        android:title="@string/about"
+        android:id="@+id/nav_title_about">
         <menu>
             <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/ic_menu_help"
-                android:title="Help" />
+                android:title="@string/help" />
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_menu_settings"
-                android:title="Settings" />
+                android:title="@string/settings" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_about"
-                android:title="About"/>
+                android:title="@string/about"/>
         </menu>
     </item>
 
