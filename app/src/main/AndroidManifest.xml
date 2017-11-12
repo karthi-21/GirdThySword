@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wordpress.joelkingsley.girdthysword">
+    package="com.code.codemercenaries.girdthysword">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.code.codemercenaries.girdthysword.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,57 +19,61 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name="com.code.codemercenaries.girdthysword.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BibleActivity"
+            android:name="com.code.codemercenaries.girdthysword.BibleActivity"
             android:label="@string/title_activity_bible"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RewardsActivity"
+            android:name="com.code.codemercenaries.girdthysword.RewardsActivity"
             android:label="@string/title_activity_rewards"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".StatsActivity"
+            android:name="com.code.codemercenaries.girdthysword.StatsActivity"
             android:label="@string/title_activity_stats"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.code.codemercenaries.girdthysword.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ReviewActivity"
+            android:name="com.code.codemercenaries.girdthysword.ReviewActivity"
             android:label="@string/title_activity_review"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName="com.code.codemercenaries.girdthysword.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value="com.code.codemercenaries.girdthysword.HomeActivity" />
         </activity>
         <activity
-            android:name=".NewSectionActivity"
+            android:name="com.code.codemercenaries.girdthysword.NewSectionActivity"
             android:label="@string/title_activity_new_section"
-            android:parentActivityName=".HomeActivity"
+            android:parentActivityName="com.code.codemercenaries.girdthysword.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".HomeActivity" />
+                android:value="com.code.codemercenaries.girdthysword.HomeActivity" />
         </activity>
-        <activity android:name=".ResultActivity" />
+        <activity android:name="com.code.codemercenaries.girdthysword.ResultActivity" />
         <activity
-            android:name=".ChapterListActivity"
+            android:name="com.code.codemercenaries.girdthysword.ChapterListActivity"
             android:label="@string/title_activity_chapter_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".VerseListActivity"
+            android:name="com.code.codemercenaries.girdthysword.VerseListActivity"
             android:label="@string/title_activity_verse_list"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".ChapterListActivity">
+            android:parentActivityName="com.code.codemercenaries.girdthysword.ChapterListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ChapterListActivity" />
+                android:value="com.code.codemercenaries.girdthysword.ChapterListActivity" />
         </activity>
+        <activity
+            android:name="com.code.codemercenaries.girdthysword.DeleteSectionActivity"
+            android:label="@string/title_activity_delete_section"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
