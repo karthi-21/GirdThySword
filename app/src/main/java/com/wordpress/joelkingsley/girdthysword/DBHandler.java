@@ -81,6 +81,7 @@ public class DBHandler extends SQLiteAssetHelper {
                 + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + " = " + chapNum;
         Cursor cursor = db.rawQuery(query,null);
         int count = cursor.getCount();
+        Log.d("getNumOfVerse:",bookName + " " + chapNum + ", " +count);
         return count;
     }
 
@@ -90,6 +91,7 @@ public class DBHandler extends SQLiteAssetHelper {
         Cursor cursor = db.rawQuery(selectQuery,null);
         int count = cursor.getCount();
         cursor.close();
+        Log.d("getNumOfChap:",bookName + ", " +count);
         return count;
     }
 
@@ -179,6 +181,21 @@ public class DBHandler extends SQLiteAssetHelper {
         return availVerses;
     }
 
+    public List<Integer> getMemorizedVerses(String bookName, int chapNum) {
+        List<Integer> memorizedVerses = new ArrayList<>();
+
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQuery = "SELECT " + B_KEY_VERSE_NUM + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNum + " AND " + B_KEY_MEMORY + "=" + "2" + " ORDER BY " + B_KEY_VERSE_NUM;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                memorizedVerses.add(Integer.parseInt(cursor.getString(0)));
+            } while (cursor.moveToNext());
+
+        }
+        return memorizedVerses;
+    }
+
     public ReadableVerse getReadableVerse(String bookName,int chapNum,int verseNum){
         ReadableVerse readableVerse = new ReadableVerse();
         String selectQuery = "SELECT * FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " +'"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNum + " AND " + B_KEY_VERSE_NUM + "=" + verseNum;
@@ -236,6 +253,45 @@ public class DBHandler extends SQLiteAssetHelper {
             cv.put(B_KEY_MEMORY,0);
 
             db.update(TABLE_BIBLE,cv,"id="+readableVerse.get_id(),null);
+        }
+    }
+
+    public void setSectionToMemorized(Section section) {
+        String bookName = section.get_book_name();
+        int chapNum = section.get_chap_num();
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        Log.d("setSectionToMemorized:", section.toString());
+        for (int i = section.get_start_verse_num(); i <= section.get_end_verse_num(); i++) {
+            ReadableVerse readableVerse = getReadableVerse(bookName, chapNum, i);
+
+            cv.put(B_KEY_BOOK_NAME, bookName);
+            cv.put(B_KEY_CHAP_NUM, chapNum);
+            cv.put(B_KEY_VERSE_NUM, i);
+            cv.put(B_KEY_VERSE_TEXT, readableVerse._verse_text);
+            cv.put(B_KEY_MEMORY, 2);
+
+            db.update(TABLE_BIBLE, cv, "id=" + readableVerse.get_id(), null);
+        }
+    }
+
+    public void setChunkToMemorized(Chunk chunk) {
+        String bookName = chunk.getBookName();
+        int chapNum = chunk.getChapNum();
+
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        Log.d("setChunkToMemorized:", chunk.toString());
+        for (int i = chunk.getStartVerseNum(); i <= chunk.getEndVerseNum(); i++) {
+            ReadableVerse readableVerse = getReadableVerse(bookName, chapNum, i);
+
+            cv.put(B_KEY_BOOK_NAME, bookName);
+            cv.put(B_KEY_CHAP_NUM, chapNum);
+            cv.put(B_KEY_VERSE_NUM, i);
+            cv.put(B_KEY_VERSE_TEXT, readableVerse._verse_text);
+            cv.put(B_KEY_MEMORY, 2);
+            db.update(TABLE_BIBLE, cv, "id=" + readableVerse.get_id(), null);
         }
     }
 
@@ -326,14 +382,14 @@ public class DBHandler extends SQLiteAssetHelper {
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar ca = Calendar.getInstance();
-        ca.add(Calendar.DATE,1);
+        ca.add(Calendar.DATE,2);
         String currDate = df.format(ca.getTime());
 
         String selectQuery = "SELECT * FROM " + TABLE_SECTION + " WHERE " + S_KEY_SEC_ID + "=" + secId;
         Cursor cursor = db.rawQuery(selectQuery,null);
         if(cursor.moveToFirst()){
-            addChunk(new Chunk(1,cursor.getString(1),Integer.parseInt(cursor.getString(2)),
-                    Integer.parseInt(cursor.getString(3)),Integer.parseInt(cursor.getString(4)),currDate,1,
+            addChunk(new Chunk(0,cursor.getString(1),Integer.parseInt(cursor.getString(2)),
+                    Integer.parseInt(cursor.getString(3)),Integer.parseInt(cursor.getString(4)),currDate,2,
                     secId,false));
             Log.d("Function:","Added Master Chunk");
         }

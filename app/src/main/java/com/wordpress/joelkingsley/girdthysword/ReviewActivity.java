@@ -111,7 +111,7 @@ public class ReviewActivity extends AppCompatActivity {
 
     private void calculate() {
         int length = vt.getText().length();
-        int levDistance = unlimitedCompare(vt.getText(),st.getText());
+        int levDistance = unlimitedCompare(vt.getText().toString().toLowerCase().replaceAll(",",""),st.getText());
 
         float matchPercentage = 100 - ((float)levDistance/(float)length) *100;
         if(matchPercentage>=85){
@@ -134,8 +134,8 @@ public class ReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentVerseIndex++;
-                review();
                 count++;
+                review();
             }
         });
     }

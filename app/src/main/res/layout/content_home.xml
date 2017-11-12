@@ -47,8 +47,7 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layTab"
-                android:background="@color/colorSword">
+                android:layout_below="@id/layTab">
 
                 <LinearLayout
                     android:id="@+id/tab1"

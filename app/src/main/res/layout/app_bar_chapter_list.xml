@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wordpress.joelkingsley.girdthysword.BibleActivity">
+    tools:context="com.wordpress.joelkingsley.girdthysword.ProfileActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,14 +17,14 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-
             <TextView
+                android:id="@+id/bookTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
                 android:layout_marginEnd="20dp"
-                android:text="@string/title_activity_bible"
+                android:text="@string/title_activity_chapter_list"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -32,7 +32,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_bible" />
-
+    <include layout="@layout/content_chapter_list" />
 
 </android.support.design.widget.CoordinatorLayout>

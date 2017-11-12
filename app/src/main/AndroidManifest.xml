@@ -56,7 +56,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".HomeActivity" />
         </activity>
-        <activity android:name=".ResultActivity"></activity>
+        <activity android:name=".ResultActivity" />
+        <activity
+            android:name=".ChapterListActivity"
+            android:label="@string/title_activity_chapter_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".VerseListActivity"
+            android:label="@string/title_activity_verse_list"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ChapterListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChapterListActivity" />
+        </activity>
     </application>
 
 </manifest>

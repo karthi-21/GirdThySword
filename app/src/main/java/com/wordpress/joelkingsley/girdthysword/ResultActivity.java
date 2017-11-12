@@ -46,11 +46,11 @@ public class ResultActivity extends AppCompatActivity {
             chunk.setNextDateOfReview(currDate);
             DBHandler db = new DBHandler(this);
 
+            db.setChunkToMemorized(chunk);
             db.updateChunk(chunk,true);
-
             db.updateSiblingChunks(chunk);
 
-            if(db.checkIfMasteredSection(chunk.getSecId()) && chunk.getSeq()!=1){
+            if(db.checkIfMasteredSection(chunk.getSecId()) && chunk.getSeq()!=0){
                 db.mergeChunksInSection(chunk.getSecId());
                 Section s = db.retSection(chunk.getSecId());
                 Toast.makeText(ResultActivity.this, "Merged Section " + s.toString(),
