@@ -80,7 +80,7 @@ public class NewSectionActivity extends AppCompatActivity {
     }
 
     public void addItemsOnBookNameSpinner(){
-        availBookNames = new ArrayList<>();
+        availBookNames = new ArrayList<String>();
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         DBHandler dbHandler = new DBHandler(this);
         for(String s:bookItems){
@@ -107,10 +107,13 @@ public class NewSectionActivity extends AppCompatActivity {
 
     public void addItemsOnChapterNumSpinner(final String bookName){
         spinner2 = (Spinner) findViewById(R.id.spinner2);
-        availChapNums = new ArrayList<>();
+        availChapNums = new ArrayList<Integer>();
+
         DBHandler dbHandler = new DBHandler(this);
-        for(int i=1;i<=dbHandler.getNumofChap(bookName);i++){
-            if(indexPreferences.getBoolean(bookName+"_"+i,false) == false){
+        int n = dbHandler.getNumofChap(bookName);
+
+        for(int i=1;i<=n;i++){
+            if(!indexPreferences.getBoolean(bookName+"_"+i,false)){
                 availChapNums.add(i);
             }
         }
@@ -146,7 +149,7 @@ public class NewSectionActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView){
 
             }
         });
@@ -209,14 +212,15 @@ public class NewSectionActivity extends AppCompatActivity {
 
         SharedPreferences indexPreferences = getSharedPreferences(INDEX_PREF,0);
 
-        if(availStartVerses.size() - (section.get_end_verse_num() - section.get_start_verse_num() + 1) == 0){
-            indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true);
-            for(int i=1;i<=numOfChap[bookItems.indexOf(bookName)];i++){
+        dbHandler.setMemoryToAdded(section);
 
-            }
+        if(dbHandler.addedChapter(bookName,chapNum)){
+            indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true);
+            Log.d("Submit","Chapter added");
+            /*for(int i=1;i<=numOfChap[bookItems.indexOf(bookName)];i++){
+            }*/
         }
 
-        dbHandler.setMemoryToAdded(section);
 
         Toast.makeText(NewSectionActivity.this, "Added " + bookName + " " + chapNum + ":" + startVerse + "-" + endVerse,
                 Toast.LENGTH_LONG).show();

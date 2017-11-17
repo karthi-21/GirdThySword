@@ -38,5 +38,5 @@
     <string name="title_activity_chapter_list">Chapters</string>
     <string name="title_activity_verse_list">Verses</string>
     <string name="psalm_1_1">Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful</string>
-    <string name="title_activity_delete_section">DeleteSectionActivity</string>
+    <string name="title_activity_delete_section">Delete Section</string>
 </resources>

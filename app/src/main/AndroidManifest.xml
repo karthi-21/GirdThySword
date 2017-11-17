@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_sword_dark"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_sword_dark_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -73,7 +73,13 @@
         <activity
             android:name="com.code.codemercenaries.girdthysword.DeleteSectionActivity"
             android:label="@string/title_activity_delete_section"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:parentActivityName="com.code.codemercenaries.girdthysword.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.code.codemercenaries.girdthysword.HomeActivity" />
+
+        </activity>
     </application>
 
 </manifest>

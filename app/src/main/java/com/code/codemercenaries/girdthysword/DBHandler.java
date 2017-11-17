@@ -173,22 +173,19 @@ public class DBHandler extends SQLiteAssetHelper {
     public boolean addedChapter(String bookName, int chapNo){
         SQLiteDatabase db = getWritableDatabase();
         String selectQueryTotal = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNo;
-        String selectQueryAdded = "SELECT " + B_KEY_MEMORY + " FROM " + TABLE_BIBLE + " WHERE " + B_KEY_BOOK_NAME + " LIKE " + '"' + bookName + '"' + " AND " + B_KEY_CHAP_NUM + "=" + chapNo + " AND " + B_KEY_MEMORY + ">" + "0";
+
         Cursor cursorTotal = db.rawQuery(selectQueryTotal,null);
-        Cursor cursorAdded = db.rawQuery(selectQueryAdded,null);
 
         Log.d("addedChapter():",bookName + " " + chapNo);
 
-        if(cursorTotal.getCount() == cursorAdded.getCount()){
-            cursorAdded.close();
-            cursorTotal.close();
-            return true;
+        if(cursorTotal.moveToFirst()){
+            do{
+                if(Integer.parseInt(cursorTotal.getString(0)) <= 0){
+                    return false;
+                }
+            }while(cursorTotal.moveToFirst());
         }
-        else{
-            cursorAdded.close();
-            cursorTotal.close();
-            return false;
-        }
+        return true;
     }
 
     public List<Integer> getAvailableVersesOfChap(String bookName,int chapNum){
