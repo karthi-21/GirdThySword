@@ -113,7 +113,9 @@ public class NewSectionActivity extends AppCompatActivity {
         int n = dbHandler.getNumofChap(bookName);
 
         for(int i=1;i<=n;i++){
-            if(!indexPreferences.getBoolean(bookName+"_"+i,false)){
+            boolean added = indexPreferences.getBoolean(bookName+"_"+i,false);
+            Log.d("addItemsOnChapter","Chapter " + i + " " + added);
+            if(!added){
                 availChapNums.add(i);
             }
         }
@@ -150,9 +152,11 @@ public class NewSectionActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView){
-
             }
         });
+        if(availStartVerses.size() == 0){
+            addItemsOnEndVerseSpinner(bookName,chapNum,0);
+        }
     }
 
     public void addItemsOnEndVerseSpinner(String bookName,int chapNum,int startVersePos){
@@ -160,6 +164,7 @@ public class NewSectionActivity extends AppCompatActivity {
         List<Integer> verseList = new ArrayList<>();
         DBHandler dbHandler = new DBHandler(this);
         availEndVerses = new ArrayList<Integer>();
+        Log.d("addItemsOnEVSpinner","setup");
         for(int i=startVersePos;i<availStartVerses.size();i++){
             if(i==availStartVerses.size()-1){
                 availEndVerses.add(availStartVerses.get(i));

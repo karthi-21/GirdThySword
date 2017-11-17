@@ -181,10 +181,14 @@ public class DBHandler extends SQLiteAssetHelper {
         if(cursorTotal.moveToFirst()){
             do{
                 if(Integer.parseInt(cursorTotal.getString(0)) <= 0){
+                    Log.d("addedChapter():","False");
                     return false;
                 }
-            }while(cursorTotal.moveToFirst());
+            }while(cursorTotal.moveToNext());
         }
+
+        cursorTotal.close();
+        Log.d("addedChapter():","True");
         return true;
     }
 
