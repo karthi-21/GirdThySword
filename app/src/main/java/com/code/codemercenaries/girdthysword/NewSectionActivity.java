@@ -220,7 +220,7 @@ public class NewSectionActivity extends AppCompatActivity {
         dbHandler.setMemoryToAdded(section);
 
         if(dbHandler.addedChapter(bookName,chapNum)){
-            indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true);
+            indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true).commit();
             Log.d("Submit","Chapter added");
             /*for(int i=1;i<=numOfChap[bookItems.indexOf(bookName)];i++){
             }*/
