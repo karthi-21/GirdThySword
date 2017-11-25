@@ -77,7 +77,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="90dp"
             android:background="@color/colorSword"
             android:orientation="horizontal"></LinearLayout>
 

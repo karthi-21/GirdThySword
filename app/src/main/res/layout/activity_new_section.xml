@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.code.codemercenaries.girdthysword.NewSectionActivity">
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,93 +33,101 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Select the section to memorize:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/bookName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Book Name" />
-
-    <Spinner
-        android:id="@+id/spinner1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bookName"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout">
 
-    <TextView
-        android:id="@+id/chapNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Chapter Number" />
+        <TextView
+            android:id="@+id/bookName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Book Name"
+            android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/chapNum"
-        android:layout_centerHorizontal="true" />
+        <Spinner
+            android:id="@+id/spinner4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@+id/endVerse"
+            android:layout_alignStart="@+id/endVerse"
+            android:layout_below="@+id/startVerse" />
 
-    <TextView
-        android:id="@+id/startVerse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner2"
-        android:layout_marginTop="21dp"
-        android:layout_toStartOf="@+id/chapNum"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Start Verse" />
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/chapNum"
+            android:layout_below="@+id/chapNum"
+            android:layout_marginEnd="30dp"/>
 
-    <TextView
-        android:id="@+id/endVerse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/startVerse"
-        android:layout_toEndOf="@+id/chapNum"
-        android:fontFamily="sans-serif-condensed"
-        android:text="End Verse" />
+        <TextView
+            android:id="@+id/endVerse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/startVerse"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="End Verse"
+            android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/startVerse"
-        android:layout_below="@+id/startVerse" />
+        <TextView
+            android:id="@+id/chapNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinner1"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Chapter Number"
+            android:textSize="24sp" />
 
-    <Spinner
-        android:id="@+id/spinner4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/endVerse"
-        android:layout_below="@+id/startVerse" />
+        <TextView
+            android:id="@+id/startVerse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinner2"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Start Verse"
+            android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignStart="@id/startVerse"
+            android:layout_below="@+id/bookName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="30dp" />
 
-        android:layout_marginBottom="15dp"
-        android:layout_alignParentBottom="true"
-        android:text="Add"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:text="Add" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@id/startVerse"
+            android:layout_alignStart="@+id/startVerse"
+            android:layout_below="@+id/startVerse" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
