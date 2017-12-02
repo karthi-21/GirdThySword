@@ -30,8 +30,6 @@ public class NewSectionActivity extends AppCompatActivity {
     SharedPreferences indexPreferences;
     SharedPreferences systemPreferences;
     int chunkSize;
-    private Spinner spinner1,spinner2,spinner3,spinner4;
-    private NumberPicker numberPicker1,numberPicker2;
     Button submit;
     List<String> bookItems = new ArrayList<>(Arrays.asList("Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua",
             "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles",
@@ -42,14 +40,14 @@ public class NewSectionActivity extends AppCompatActivity {
             "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
             "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon",
             "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation"));
-
     Integer numOfChap[] = {50,40,27,36,34,24,21,4,31,24,22,25,29,36,10,13,10,42,150,31,12,8,66,52,5,48,
             12,14,3,9,1,4,7,3,3,3,2,14,4,28,16,24,21,28,16,16,13,6,6,4,4,5,3,6,4,3,1,13,5,5,3,5,1,1,1,22};
-
     List<String> availBookNames;
     List<Integer> availChapNums;
     List<Integer> availStartVerses;
     List<Integer> availEndVerses;
+    private Spinner spinner1,spinner2,spinner3,spinner4;
+    private NumberPicker numberPicker1,numberPicker2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +219,17 @@ public class NewSectionActivity extends AppCompatActivity {
 
         if(dbHandler.addedChapter(bookName,chapNum)){
             indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true).commit();
+            boolean addedBook = true;
+            for(int i=1;i<=dbHandler.getNumofChap(bookName);i++){
+                if(!indexPreferences.getBoolean(bookName+"_"+chapNum,false)){
+                    addedBook = false;
+                    break;
+                }
+            }
+            if(addedBook){
+                indexPreferences.edit().putBoolean(bookName,true).commit();
+                Log.d("Submit","Book added");
+            }
             Log.d("Submit","Chapter added");
             /*for(int i=1;i<=numOfChap[bookItems.indexOf(bookName)];i++){
             }*/

@@ -18,6 +18,8 @@ import java.util.StringTokenizer;
 
 public class ReviewActivity extends AppCompatActivity {
 
+    private static final int REQ_CODE_CONTINUE = 200;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     //General
     Chunk chunk;
     Long id;
@@ -25,27 +27,22 @@ public class ReviewActivity extends AppCompatActivity {
     List<ReadableVerse> readableVerseList = new ArrayList<ReadableVerse>();
     List<StringTokenizer> tokenList = new ArrayList<StringTokenizer>();
     List<String> speakableText = new ArrayList<String>();
-
     int currentVerseIndex;
     float totalMatchScore;
-
     //Review Layout
     TextView vt;
     TextView st;
     TextView completed;
     TextView heading;
-
     FloatingActionButton record;
     Button continue_btn;
-
-
-    private final int REQ_CODE_SPEECH_INPUT = 100;
-    private static final int REQ_CODE_CONTINUE = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+
+
 
         vt = (TextView) findViewById(R.id.verseText);
         st = (TextView) findViewById(R.id.spokenText);

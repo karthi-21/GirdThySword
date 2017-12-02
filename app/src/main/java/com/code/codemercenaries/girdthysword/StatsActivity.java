@@ -2,9 +2,7 @@ package com.code.codemercenaries.girdthysword;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,9 +13,28 @@ import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class StatsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    String[] oldTBooks = {"Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua",
+            "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles",
+            "2 Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes",
+            "Song of Solomon", "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea",
+            "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai",
+            "Zechariah", "Malachi"};
+    String[] newTBooks = {"Matthew", "Mark", "Luke", "John", "Acts", "Romans",
+            "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
+            "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon",
+            "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation"};
+
+    ListView otList;
+    ListView ntList;
+    ProgressBar pg;
+    TextView pt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +43,6 @@ public class StatsActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,7 +58,21 @@ public class StatsActivity extends AppCompatActivity
         s.setSpan(new TextAppearanceSpan(this, R.style.whiteText), 0, s.length(), 0);
         tools.setTitle(s);
 
+        otList = (ListView) findViewById(R.id.ot);
+        ntList = (ListView) findViewById(R.id.nt);
+        pg = (ProgressBar) findViewById(R.id.progressBar);
+        pt = (TextView) findViewById(R.id.progressText);
+
+        pg.setMax(100);
+        setupList();
+        updateProgressBar(50);
+
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void updateProgressBar(int n) {
+        pg.setProgress(n);
+        pt.setText("" + n + "%");
     }
 
     @Override
@@ -115,5 +138,26 @@ public class StatsActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setupList(){
+        final DBHandler dbHandler = new DBHandler(this);
+
+        BCustomListAdapter1 adapter = new BCustomListAdapter1(this,R.layout.bible_custom_list1,oldTBooks);
+        otList.setAdapter(adapter);
+        otList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        adapter = new BCustomListAdapter1(this,R.layout.bible_custom_list1,newTBooks);
+        ntList.setAdapter(adapter);
+        ntList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 }

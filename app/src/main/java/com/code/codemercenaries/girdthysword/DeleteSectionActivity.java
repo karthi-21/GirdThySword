@@ -60,7 +60,8 @@ public class DeleteSectionActivity extends AppCompatActivity {
                                 // continue with delete
                                 dbHandler.deleteSection(sectionIds.get(i));
                                 dbHandler.setMemoryToNotAdded(sections.get(i));
-                                indexPreferences.edit().putBoolean(sections.get(i).get_book_name()+"_"+sections.get(i).get_chap_num(),false);
+                                indexPreferences.edit().putBoolean(sections.get(i).get_book_name()+"_"+sections.get(i).get_chap_num(),false).commit();
+                                indexPreferences.edit().putBoolean(sections.get(i).get_book_name(),false).commit();
                                 setupList();
                             }
                         })
