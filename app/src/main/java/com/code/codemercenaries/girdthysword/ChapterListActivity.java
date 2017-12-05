@@ -149,7 +149,7 @@ public class ChapterListActivity extends AppCompatActivity
         } else if (id == R.id.nav_bible) {
             Intent intent = new Intent(ChapterListActivity.this,BibleActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_rewards) {
+        } /*else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(ChapterListActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
@@ -158,7 +158,7 @@ public class ChapterListActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(ChapterListActivity.this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_help) {
+        }*/ else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_settings) {
 

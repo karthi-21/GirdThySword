@@ -85,7 +85,7 @@ public class RewardsActivity extends AppCompatActivity
         } else if (id == R.id.nav_bible) {
             Intent intent = new Intent(RewardsActivity.this,BibleActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_rewards) {
+        } /*else if (id == R.id.nav_rewards) {
 
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(RewardsActivity.this,StatsActivity.class);
@@ -93,7 +93,7 @@ public class RewardsActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(RewardsActivity.this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_help) {
+        }*/ else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_settings) {
 

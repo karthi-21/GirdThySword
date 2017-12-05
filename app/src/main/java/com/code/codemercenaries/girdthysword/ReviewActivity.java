@@ -43,7 +43,6 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
 
-
         vt = (TextView) findViewById(R.id.verseText);
         st = (TextView) findViewById(R.id.spokenText);
         completed = (TextView) findViewById(R.id.completed);

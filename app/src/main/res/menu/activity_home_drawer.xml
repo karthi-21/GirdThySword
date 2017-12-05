@@ -10,7 +10,7 @@
             android:id="@+id/nav_bible"
             android:icon="@drawable/ic_menu_bible_dark"
             android:title="@string/bible" />
-        <item
+        <!--<item
             android:id="@+id/nav_rewards"
             android:icon="@drawable/ic_menu_rewards_dark"
             android:title="@string/rewards" />
@@ -21,12 +21,12 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_profile_dark"
-            android:title="@string/profile"/>
+            android:title="@string/profile"/>-->
     </group>
 
     <item
-        android:title="@string/about"
-        android:id="@+id/nav_title_about">
+        android:id="@+id/nav_title_about"
+        android:title="@string/about">
         <menu>
             <item
                 android:id="@+id/nav_help"

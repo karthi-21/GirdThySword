@@ -1,6 +1,7 @@
 package com.code.codemercenaries.girdthysword;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 public class StatsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    final String INDEX_PREF = "index_pref";
     String[] oldTBooks = {"Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua",
             "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles",
             "2 Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes",
@@ -30,11 +32,11 @@ public class StatsActivity extends AppCompatActivity
             "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians",
             "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon",
             "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Revelation"};
-
     ListView otList;
     ListView ntList;
     ProgressBar pg;
     TextView pt;
+    SharedPreferences indexPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +64,20 @@ public class StatsActivity extends AppCompatActivity
         ntList = (ListView) findViewById(R.id.nt);
         pg = (ProgressBar) findViewById(R.id.progressBar);
         pt = (TextView) findViewById(R.id.progressText);
+        indexPreferences = getSharedPreferences(INDEX_PREF, 0);
 
         pg.setMax(100);
+        //initializeProgressBar();
         setupList();
         updateProgressBar(50);
 
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initializeProgressBar() {
+        DBHandler dbHandler = new DBHandler(this);
+        for (int i = 0; i < oldTBooks.length; i++) {
+        }
     }
 
     private void updateProgressBar(int n) {
@@ -119,7 +129,7 @@ public class StatsActivity extends AppCompatActivity
         } else if (id == R.id.nav_bible) {
             Intent intent = new Intent(StatsActivity.this,BibleActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_rewards) {
+        } /*else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(StatsActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
@@ -127,7 +137,7 @@ public class StatsActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(StatsActivity.this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_help) {
+        }*/ else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_settings) {
 
@@ -156,7 +166,7 @@ public class StatsActivity extends AppCompatActivity
         ntList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
             }
         });
     }

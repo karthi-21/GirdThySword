@@ -26,9 +26,9 @@ import java.util.List;
 public class NewSectionActivity extends AppCompatActivity {
 
     final String INDEX_PREF = "index_pref";
-    final String SYSTEM_PREF = "system_pref";
+    final String SETTINGS_PREF = "settings_pref";
     SharedPreferences indexPreferences;
-    SharedPreferences systemPreferences;
+    SharedPreferences settingsPreferences;
     int chunkSize;
     Button submit;
     List<String> bookItems = new ArrayList<>(Arrays.asList("Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua",
@@ -60,7 +60,7 @@ public class NewSectionActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
 
-        systemPreferences = getSharedPreferences(SYSTEM_PREF,0);
+        settingsPreferences = getSharedPreferences(SETTINGS_PREF, 0);
         indexPreferences = getSharedPreferences(INDEX_PREF,0);
         submit = (Button) findViewById(R.id.button);
         addItemsOnBookNameSpinner();
@@ -204,7 +204,7 @@ public class NewSectionActivity extends AppCompatActivity {
         Section section = new Section(bookName,chapNum,startVerse,endVerse,secId);
         dbHandler.addSection(section);
 
-        SharedPreferences systemPreferences = getSharedPreferences(SYSTEM_PREF,0);
+        SharedPreferences systemPreferences = getSharedPreferences(SETTINGS_PREF, 0);
         chunkSize = systemPreferences.getInt("chunk_size",3);
 
         List<Chunk> chunkList = chunkize(section,chunkSize);

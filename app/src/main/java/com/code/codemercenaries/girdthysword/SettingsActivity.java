@@ -1,6 +1,7 @@
 package com.code.codemercenaries.girdthysword;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,32 +13,45 @@ import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
-public class ProfileActivity extends AppCompatActivity
+public class SettingsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    final String SETTINGS_PREF = "settings_pref";
+    SharedPreferences settingsPreferences;
+    ListView settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         Menu menu = navigationView.getMenu();
-        MenuItem tools= menu.findItem(R.id.nav_title_about);
+        MenuItem tools = menu.findItem(R.id.nav_title_about);
         SpannableString s = new SpannableString(tools.getTitle());
         s.setSpan(new TextAppearanceSpan(this, R.style.whiteText), 0, s.length(), 0);
         tools.setTitle(s);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        settingsPreferences = getSharedPreferences(SETTINGS_PREF, 0);
+        settings = (ListView) findViewById(R.id.settings);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupList();
     }
 
     @Override
@@ -53,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
+        getMenuInflater().inflate(R.menu.settings, menu);
         return true;
     }
 
@@ -79,21 +93,23 @@ public class ProfileActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(ProfileActivity.this,HomeActivity.class);
+            Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_bible) {
-            Intent intent = new Intent(ProfileActivity.this,BibleActivity.class);
+            Intent intent = new Intent(SettingsActivity.this, BibleActivity.class);
             startActivity(intent);
         } /*else if (id == R.id.nav_rewards) {
-            Intent intent = new Intent(ProfileActivity.this,RewardsActivity.class);
+            Intent intent = new Intent(HomeActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(ProfileActivity.this,StatsActivity.class);
+            Intent intent = new Intent(HomeActivity.this,StatsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
-
+            Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
+            startActivity(intent);
         }*/ else if (id == R.id.nav_help) {
-
+            Intent intent = new Intent(SettingsActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_about) {
@@ -104,4 +120,10 @@ public class ProfileActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setupList() {
+        SCustomListAdapter1 adapter = new SCustomListAdapter1(this, R.layout.settings_custom_list1);
+        settings.setAdapter(adapter);
+    }
+
 }

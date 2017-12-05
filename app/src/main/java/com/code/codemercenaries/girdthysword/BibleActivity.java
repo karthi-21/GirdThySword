@@ -93,7 +93,8 @@ public class BibleActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(BibleActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -110,7 +111,7 @@ public class BibleActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_bible) {
 
-        } else if (id == R.id.nav_rewards) {
+        } /*else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(BibleActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
@@ -119,10 +120,12 @@ public class BibleActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             Intent intent = new Intent(BibleActivity.this,ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_help) {
-
+        }*/ else if (id == R.id.nav_help) {
+            Intent intent = new Intent(BibleActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
-
+            Intent intent = new Intent(BibleActivity.this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
 
         }
