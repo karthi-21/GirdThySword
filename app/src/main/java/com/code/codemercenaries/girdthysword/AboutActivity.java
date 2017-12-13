@@ -1,6 +1,8 @@
 package com.code.codemercenaries.girdthysword;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,24 +15,20 @@ import android.text.style.TextAppearanceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class HelpActivity extends AppCompatActivity
+public class AboutActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView questionList;
+    Button report;
+    Button feedback;
+    Button source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
+        setContentView(R.layout.activity_about);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,8 +37,6 @@ public class HelpActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        questionList = (ListView) findViewById(R.id.questions);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -51,7 +47,55 @@ public class HelpActivity extends AppCompatActivity
         s.setSpan(new TextAppearanceSpan(this, R.style.whiteText), 0, s.length(), 0);
         tools.setTitle(s);
 
-        setupList();
+        report = (Button) findViewById(R.id.report);
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "codemercenaries@gmail.com"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "[GirdThySword-Android] Bug Report");
+                    intent.putExtra(Intent.EXTRA_TEXT, "");
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(AboutActivity.this, "No application can handle this request."
+                            + "Please install an email client", Toast.LENGTH_LONG);
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        feedback = (Button) findViewById(R.id.feedback);
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "codemercenaries@gmail.com"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "[GirdThySword-Android] Feedback");
+                    intent.putExtra(Intent.EXTRA_TEXT, "");
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(AboutActivity.this, "No application can handle this request."
+                            + "Please install an email client", Toast.LENGTH_LONG);
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        source = (Button) findViewById(R.id.source);
+        source.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/CodeMercenaries/GirdThySword"));
+                    startActivity(browserIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(AboutActivity.this, "No application can handle this request."
+                            + "Please install a web browser", Toast.LENGTH_LONG);
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -67,7 +111,7 @@ public class HelpActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.about, menu);
         return true;
     }
 
@@ -80,8 +124,9 @@ public class HelpActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(HelpActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(AboutActivity.this, SettingsActivity.class);
             startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -94,52 +139,32 @@ public class HelpActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(HelpActivity.this, HomeActivity.class);
+            Intent intent = new Intent(AboutActivity.this, HomeActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_bible) {
-            Intent intent = new Intent(HelpActivity.this, BibleActivity.class);
+            Intent intent = new Intent(AboutActivity.this, BibleActivity.class);
             startActivity(intent);
         } /*else if (id == R.id.nav_rewards) {
-            Intent intent = new Intent(ChapterListActivity.this,RewardsActivity.class);
+            Intent intent = new Intent(BibleActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(ChapterListActivity.this,StatsActivity.class);
+            Intent intent = new Intent(BibleActivity.this,StatsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(ChapterListActivity.this,ProfileActivity.class);
+            Intent intent = new Intent(BibleActivity.this,ProfileActivity.class);
             startActivity(intent);
         }*/ else if (id == R.id.nav_help) {
-
+            Intent intent = new Intent(AboutActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(HelpActivity.this, SettingsActivity.class);
+            Intent intent = new Intent(AboutActivity.this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-            Intent intent = new Intent(HelpActivity.this, AboutActivity.class);
-            startActivity(intent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void setupList() {
-
-        List<String> questions = new ArrayList<>(Arrays.asList("I'm confused. Where do I get an overview?"
-                , "How do I add new sections to memorize?"
-                , "How do I know when to review a particular chunk?"
-                , "The speech recognition seems to be very inaccurate."
-                , "How do I report a bug or request a feature?"));
-
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, questions);
-        questionList.setAdapter(adapter);
-        questionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(HelpActivity.this, AnswerActivity.class);
-                intent.putExtra("EXTRA_QUES_ID", position + 1);
-                startActivity(intent);
-            }
-        });
     }
 }

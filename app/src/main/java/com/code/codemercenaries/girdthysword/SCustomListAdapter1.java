@@ -23,7 +23,7 @@ public class SCustomListAdapter1 extends ArrayAdapter<String> {
     int resource;
     Context context;
     SharedPreferences settingsPreferences;
-    private int settingsItemsSize = 1;
+    private int settingsItemsSize = 2;
 
 
     public SCustomListAdapter1(@NonNull Context context, int resource) {
@@ -42,19 +42,36 @@ public class SCustomListAdapter1 extends ArrayAdapter<String> {
         if (position == 0) {
             TextView title = (TextView) rowView.findViewById(R.id.title);
             TextView desc = (TextView) rowView.findViewById(R.id.desc);
-            TextView chunkSize = (TextView) rowView.findViewById(R.id.chunk_size);
+            TextView chunkSize = (TextView) rowView.findViewById(R.id.value);
 
             int chunk = settingsPreferences.getInt("chunk_size", 3);
             chunkSize.setText(Integer.toString(chunk));
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setChunkSize(v);
+                }
+            });
         }
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setChunkSize(v);
+        if (position == 1) {
+            TextView title = (TextView) rowView.findViewById(R.id.title);
+            TextView desc = (TextView) rowView.findViewById(R.id.desc);
+            TextView themeValue = (TextView) rowView.findViewById(R.id.value);
 
-            }
-        });
+            title.setText("Theme");
+            desc.setText("Color scheme of the app");
 
+            String theme = settingsPreferences.getString("theme", "original");
+            themeValue.setText(theme);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setTheme(v);
+                }
+            });
+        }
         return rowView;
     }
 
@@ -76,8 +93,26 @@ public class SCustomListAdapter1 extends ArrayAdapter<String> {
                 settingsPreferences.edit().putInt("chunk_size", size + 1).apply();
                 Toast.makeText(context, "Chunk Size changed to " + Integer.toString(size + 1),
                         Toast.LENGTH_LONG).show();
-                TextView tv = v.findViewById(R.id.chunk_size);
+                TextView tv = v.findViewById(R.id.value);
                 tv.setText(Integer.toString(size + 1));
+            }
+        });
+        builder.show();
+    }
+
+    public void setTheme(final View v) {
+        final String themes[] = new String[]{"original", "white"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Pick a theme");
+        builder.setItems(themes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int pos) {
+
+                settingsPreferences.edit().putString("theme", themes[pos]).apply();
+                Toast.makeText(context, "Theme changed to " + themes[pos],
+                        Toast.LENGTH_LONG).show();
+                TextView tv = v.findViewById(R.id.value);
+                tv.setText(themes[pos]);
             }
         });
         builder.show();

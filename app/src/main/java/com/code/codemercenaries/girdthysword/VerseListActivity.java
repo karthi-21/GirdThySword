@@ -47,6 +47,11 @@ public class VerseListActivity extends AppCompatActivity {
         setupList();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void setupList(){
         DBHandler dbHandler = new DBHandler(this);
         List<ReadableVerse> verses = dbHandler.getChapterWithMemory(bookName,chapNum);

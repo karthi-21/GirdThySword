@@ -99,7 +99,7 @@ public class ReviewActivity extends AppCompatActivity {
             Intent intent = new Intent(ReviewActivity.this,ResultActivity.class);
             intent.putExtra("EXTRA_CHUNK_ID",this.id);
             intent.putExtra("EXTRA_TOTAL_MATCH_SCORE",totalMatchScore);
-            intent.putExtra("EXTRA_NO_OF_REVIEWS",count);
+            intent.putExtra("EXTRA_NO_OF_REVIEWS", readableVerseList.size());
             startActivity(intent);
         }
 

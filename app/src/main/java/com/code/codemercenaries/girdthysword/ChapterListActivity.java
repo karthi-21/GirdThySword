@@ -1,8 +1,10 @@
 package com.code.codemercenaries.girdthysword;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,11 +28,12 @@ public class ChapterListActivity extends AppCompatActivity
 
     final String SYSTEM_PREF = "system_pref";
     SharedPreferences systemPreferences;
-
+    ProgressDialog dialog;
     ListView chapList;
     TextView bt;
 
     String bookName;
+    boolean isEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +76,38 @@ public class ChapterListActivity extends AppCompatActivity
             bt.setText(bookName);
         }*/
 
-        bt.setText(bookName);
+        final ProgressDialog dialog = ProgressDialog.show(ChapterListActivity.this, "",
+                "Loading. Please wait...", true);
+
+        DBHandler dbHandler = new DBHandler(this);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 47 * dbHandler.getNumofChap(bookName));
 
         if(bookName!=null){
+            bt.setText(bookName);
             setupList();
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void setupList() {
@@ -103,6 +132,7 @@ public class ChapterListActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -131,6 +161,8 @@ public class ChapterListActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(ChapterListActivity.this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -159,11 +191,14 @@ public class ChapterListActivity extends AppCompatActivity
             Intent intent = new Intent(ChapterListActivity.this,ProfileActivity.class);
             startActivity(intent);
         }*/ else if (id == R.id.nav_help) {
-
+            Intent intent = new Intent(ChapterListActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
-
+            Intent intent = new Intent(ChapterListActivity.this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(ChapterListActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

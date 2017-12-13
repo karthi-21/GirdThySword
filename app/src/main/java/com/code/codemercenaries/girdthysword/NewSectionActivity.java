@@ -221,7 +221,7 @@ public class NewSectionActivity extends AppCompatActivity {
             indexPreferences.edit().putBoolean(bookName+"_"+chapNum,true).commit();
             boolean addedBook = true;
             for(int i=1;i<=dbHandler.getNumofChap(bookName);i++){
-                if(!indexPreferences.getBoolean(bookName+"_"+chapNum,false)){
+                if (indexPreferences.getBoolean(bookName + "_" + i, false) == false) {
                     addedBook = false;
                     break;
                 }

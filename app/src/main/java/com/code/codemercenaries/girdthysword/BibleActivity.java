@@ -127,7 +127,8 @@ public class BibleActivity extends AppCompatActivity
             Intent intent = new Intent(BibleActivity.this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(BibleActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,7 +176,18 @@ public class BibleActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent  = new Intent(BibleActivity.this,ChapterListActivity.class);
                 intent.putExtra("EXTRA_BOOK_NAME",otBooks[i]);
+                /*final ProgressDialog dialog = ProgressDialog.show(BibleActivity.this, "",
+                        "Loading. Please wait...", true);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                },3000);*/
                 startActivity(intent);
+
             }
         });
 

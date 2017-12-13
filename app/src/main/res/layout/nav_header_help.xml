@@ -31,6 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
-        android:text="www.girdthysword.com" />
+        android:text="www.girdthyswordapp.com" />
 
 </LinearLayout>

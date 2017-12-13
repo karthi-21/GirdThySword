@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GTSWORD</string>
+    <string name="app_name">GIRDTHYSWORD</string>
     <string name="title_activity_home">Home</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -46,6 +46,7 @@
     <string name="title_result">Result</string>
     <string name="title_activity_help">Help</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_about">About</string>
 
     <string name="default_settings_list_desc">Number of verses in each chunk</string>
     <string name="default_chunk_size">3</string>
@@ -53,4 +54,16 @@
 
     <string name="stats_text">Number of Reviews:0\nNumber of Chapters memorized:0</string>
     <string name="psalm_1_1">Blessed is the man that walketh not in the counsel of the ungodly, nor standeth in the way of sinners, nor sitteth in the seat of the scornful</string>
+    <string name="girdthyswordapp">\@girdthyswordapp</string>
+    <string name="round_logo_desc">Round logo</string>
+    <string name="rate_our_app">Rate our App</string>
+    <string name="report_a_bug">Report a Bug</string>
+    <string name="send_us_feedback">Send us Feedback</string>
+    <string name="joel_kingsley_details">Joel Kingsley\n<a href="http://joelkingsley.wordpress.com">http://joelkingsley.wordpress.com</a></string>
+    <string name="karthikeyan_details">Karthikeyan\n<a href="http://karthikeyan210.wordpress.com">http://karthikeyan210.wordpress.com</a></string>
+    <string name="murali_krishna_details">Murali Krishna</string>
+    <string name="title_activity_answer">Answer</string>
+    <string name="sample_question">I\'m confused. Where do I get an overview?</string>
+    <string name="sample_answer">First, you\'ll add a section of the Bible that you want to memorize. Once you press ADD the app will break down the section into chunks of equal size(you can change the chunk size in the settings menu). Then as you memorize the chunks that are assigned to you daily, you will click on the chunk and review by reciting the verses of that chunk. Depending upon how accurate you recite it, the next date of review will be extended. In the Bible which is integrated, the verses you\'ve memorized will appear GREEN, and verses added for memorization will appear YELLOW.</string>
+
 </resources>

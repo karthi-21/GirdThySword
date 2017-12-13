@@ -1,9 +1,12 @@
 package com.code.codemercenaries.girdthysword;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -30,6 +35,8 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    final String SETTINGS_PREF = "settings_pref";
+    CoordinatorLayout coordinatorLayout;
     TabHost tabHost;
     ListView today;
     ListView overdue;
@@ -40,15 +47,40 @@ public class HomeActivity extends AppCompatActivity
     FloatingActionButton fab_delete;
     TextView tv_add;
     TextView tv_delete;
-
     boolean fab_status;
+    RelativeLayout layTab;
+    LinearLayout back;
+    Toolbar toolbar;
+    SharedPreferences settingsPreferences;
+
+    String theme;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        settingsPreferences = getSharedPreferences(SETTINGS_PREF, 0);
+        theme = settingsPreferences.getString("theme", "original");
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        back = (LinearLayout) findViewById(R.id.back);
+        layTab = (RelativeLayout) findViewById(R.id.layTab);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+        tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
+        today = (ListView) findViewById(R.id.today_list);
+        overdue = (ListView) findViewById(R.id.overdue_list);
+        tomorrow = (ListView) findViewById(R.id.tomorrow_list);
+        all = (ListView) findViewById(R.id.all_list);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
+        fab_delete = (FloatingActionButton) findViewById(R.id.fab_delete);
+        tv_add = (TextView) findViewById(R.id.tv_add);
+        tv_delete = (TextView) findViewById(R.id.tv_delete);
+
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,19 +98,6 @@ public class HomeActivity extends AppCompatActivity
         tools.setTitle(s);
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        tabHost = (TabHost) findViewById(R.id.tabhost); // initiate TabHost
-        today = (ListView) findViewById(R.id.today_list);
-        overdue = (ListView) findViewById(R.id.overdue_list);
-        tomorrow = (ListView) findViewById(R.id.tomorrow_list);
-        all = (ListView) findViewById(R.id.all_list);
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab_add = (FloatingActionButton) findViewById(R.id.fab_add);
-        fab_delete = (FloatingActionButton) findViewById(R.id.fab_delete);
-        tv_add = (TextView) findViewById(R.id.tv_add);
-        tv_delete = (TextView) findViewById(R.id.tv_delete);
-
         setupTabHost();
     }
 
@@ -87,6 +106,20 @@ public class HomeActivity extends AppCompatActivity
         super.onResume();
 
         try {
+            theme = settingsPreferences.getString("theme", "original");
+            if (theme.equals("original")) {
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                back.setBackgroundColor(getResources().getColor(R.color.colorSword));
+                layTab.setBackgroundColor(getResources().getColor(R.color.colorSword));
+            } else if (theme.equals("dark")) {
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorSword));
+                back.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                layTab.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            } else if (theme.equals("white")) {
+                toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                back.setBackgroundColor(getResources().getColor(android.R.color.white));
+                layTab.setBackgroundColor(getResources().getColor(android.R.color.white));
+            }
             setupLists();
 
         } catch (ParseException e) {
@@ -94,6 +127,7 @@ public class HomeActivity extends AppCompatActivity
         }
         setupFabs();
     }
+
 
     private void setupLists() throws ParseException {
 
@@ -263,6 +297,15 @@ public class HomeActivity extends AppCompatActivity
         spec.setContent(R.id.tab4);
         tabHost.addTab(spec);
 
+        if (theme.equals("original")) {
+        } else if (theme.equals("white")) {
+        } else if (theme.equals("dark")) {
+            for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+                TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                tv.setTextColor(getResources().getColor(android.R.color.white));
+            }
+        }
+
         //set tab which one you want to open first time 0 or 1 or 2
         tabHost.setCurrentTab(0);
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -289,7 +332,10 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            fab_hide();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Press Home Button to exit app!", Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -343,7 +389,8 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(HomeActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
