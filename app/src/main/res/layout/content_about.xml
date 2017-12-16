@@ -23,8 +23,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="46dp"
             android:contentDescription="@string/round_logo_desc"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             app:srcCompat="@mipmap/ic_sword_dark_round" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="35dp"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/girdthyswordapp"
             android:textAlignment="center"

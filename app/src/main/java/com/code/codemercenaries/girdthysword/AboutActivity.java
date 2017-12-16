@@ -24,6 +24,7 @@ public class AboutActivity extends AppCompatActivity
     Button report;
     Button feedback;
     Button source;
+    Button rate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,26 @@ public class AboutActivity extends AppCompatActivity
         SpannableString s = new SpannableString(tools.getTitle());
         s.setSpan(new TextAppearanceSpan(this, R.style.whiteText), 0, s.length(), 0);
         tools.setTitle(s);
+
+        rate = (Button) findViewById(R.id.rate);
+        rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                // To count with Play market backstack, After pressing back button,
+                // to taken back to our application, we need to add following flags to intent.
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                }
+            }
+        });
 
         report = (Button) findViewById(R.id.report);
         report.setOnClickListener(new View.OnClickListener() {
@@ -150,10 +171,10 @@ public class AboutActivity extends AppCompatActivity
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(BibleActivity.this,StatsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(BibleActivity.this,ProfileActivity.class);
+        }*/ else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(AboutActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }*/ else if (id == R.id.nav_help) {
+        } else if (id == R.id.nav_help) {
             Intent intent = new Intent(AboutActivity.this, HelpActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {

@@ -105,10 +105,11 @@ public class HelpActivity extends AppCompatActivity
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(ChapterListActivity.this,StatsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(ChapterListActivity.this,ProfileActivity.class);
+        }*/ else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(
+                    HelpActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }*/ else if (id == R.id.nav_help) {
+        } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(HelpActivity.this, SettingsActivity.class);

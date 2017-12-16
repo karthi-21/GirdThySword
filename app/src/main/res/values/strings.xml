@@ -65,5 +65,24 @@
     <string name="title_activity_answer">Answer</string>
     <string name="sample_question">I\'m confused. Where do I get an overview?</string>
     <string name="sample_answer">First, you\'ll add a section of the Bible that you want to memorize. Once you press ADD the app will break down the section into chunks of equal size(you can change the chunk size in the settings menu). Then as you memorize the chunks that are assigned to you daily, you will click on the chunk and review by reciting the verses of that chunk. Depending upon how accurate you recite it, the next date of review will be extended. In the Bible which is integrated, the verses you\'ve memorized will appear GREEN, and verses added for memorization will appear YELLOW.</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="log_out">Log out</string>
+    <string name="anonymous_sign_in">Anonymous Sign In</string>
+    <string name="girdthysword">GirdThySword</string>
+    <string name="joel_kingsley">Joel Kingsley</string>
+    <string name="my_email">joelkingsley.r@gmail.com</string>
 
 </resources>

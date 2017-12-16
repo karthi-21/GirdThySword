@@ -25,6 +25,8 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class HomeActivity extends AppCompatActivity
     LinearLayout back;
     Toolbar toolbar;
     SharedPreferences settingsPreferences;
+    FirebaseAuth mAuth;
 
     String theme;
 
@@ -60,7 +63,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         settingsPreferences = getSharedPreferences(SETTINGS_PREF, 0);
         theme = settingsPreferences.getString("theme", "original");
 
@@ -84,8 +86,7 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -98,6 +99,7 @@ public class HomeActivity extends AppCompatActivity
         tools.setTitle(s);
 
         navigationView.setNavigationItemSelectedListener(this);
+        mAuth = FirebaseAuth.getInstance();
         setupTabHost();
     }
 
@@ -379,10 +381,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(HomeActivity.this,StatsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
+        }*/ else if (id == R.id.nav_profile) {
             Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
             startActivity(intent);
-        }*/ else if (id == R.id.nav_help) {
+        } else if (id == R.id.nav_help) {
             Intent intent = new Intent(HomeActivity.this, HelpActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {

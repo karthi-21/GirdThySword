@@ -104,10 +104,10 @@ public class SettingsActivity extends AppCompatActivity
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(HomeActivity.this,StatsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
-            Intent intent = new Intent(HomeActivity.this,ProfileActivity.class);
+        }*/ else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(SettingsActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }*/ else if (id == R.id.nav_help) {
+        } else if (id == R.id.nav_help) {
             Intent intent = new Intent(SettingsActivity.this, HelpActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
