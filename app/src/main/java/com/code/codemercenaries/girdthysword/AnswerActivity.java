@@ -49,28 +49,28 @@ public class AnswerActivity extends AppCompatActivity
                     "into chunks of equal size(you can change the chunk size in the settings menu). Then as " +
                     "you memorize the chunks that are assigned to you daily, you will click on the chunk and " +
                     "review by reciting the verses of that chunk. Depending upon how accurate you recite it, " +
-                    "the next date of review will be extended. In the Bible which is integrated, the verses " +
-                    "you've memorized will appear GREEN, and verses added for memorization will appear YELLOW.",
+                    "the next date of review will be set. In the Bible which is integrated, the verses " +
+                    "you've memorized will appear GREEN, and the verses added for memorization will appear YELLOW.",
 
-            "You can add new sections by pressing the floating button in the right bottom corner of " +
+            "You can add new sections by pressing the floating button in the bottom right corner of " +
                     "the HOME menu, and clicking on the Add Section button that appears.",
 
             "The app uses a cognitive model for spacing out time between subsequent reviews, and it " +
                     "automatically calculates when to schedule the next date of review and displays " +
                     "in the TODAY list on that particular day. So you don't have remember when to " +
-                    "review a particular chunk. If you want to check when a chunk is scheduled, " +
+                    "review a particular chunk. Anyways if you want to check when a chunk is scheduled to, " +
                     "you can go to the ALL tab which displays all the chunks along with the next " +
                     "date of review",
 
             "GirdThySword uses Google's speech API for speech recognition which is not very accurate " +
                     "with archaic words that are in the Bible. That being said there are some tips " +
                     "that you can use inorder to get the best possible accuracy.\n1.Review when " +
-                    "connected to Fast Internet such as WiFi or 4G data. This makes the speech engine " +
+                    "connected to fast Internet such as WiFi or 4G data. This makes the speech engine " +
                     "to send the recording to the cloud for more rigorous processing.\n2.Recite the " +
                     "verses in a consistent and slow pace, with your own voice. The speech recognition " +
-                    "is trained to your own voice when you use voice typing or the Google Assistant. " +
+                    "is trained to your voice when you use voice typing or the Google Assistant in your Phone. " +
                     "Therefore it will understand your voice much easier than it understands someone " +
-                    "else using your phone.",
+                    "else's who is using your phone.",
 
             "You can send a feedback or report a bug by clicking on the buttons in the About menu or" +
                     " down below."));
