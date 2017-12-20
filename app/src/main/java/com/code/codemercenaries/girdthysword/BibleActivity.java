@@ -93,7 +93,8 @@ public class BibleActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(BibleActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -110,21 +111,24 @@ public class BibleActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_bible) {
 
-        } else if (id == R.id.nav_rewards) {
+        } /*else if (id == R.id.nav_rewards) {
             Intent intent = new Intent(BibleActivity.this,RewardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(BibleActivity.this,StatsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
+        }*/ else if (id == R.id.nav_profile) {
             Intent intent = new Intent(BibleActivity.this,ProfileActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_help) {
-
+            Intent intent = new Intent(BibleActivity.this, HelpActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
-
+            Intent intent = new Intent(BibleActivity.this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(BibleActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,7 +176,18 @@ public class BibleActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent  = new Intent(BibleActivity.this,ChapterListActivity.class);
                 intent.putExtra("EXTRA_BOOK_NAME",otBooks[i]);
+                /*final ProgressDialog dialog = ProgressDialog.show(BibleActivity.this, "",
+                        "Loading. Please wait...", true);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                },3000);*/
                 startActivity(intent);
+
             }
         });
 

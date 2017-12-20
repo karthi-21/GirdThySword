@@ -21,9 +21,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="GirdThySword"
-        android:fontFamily="sans-serif-smallcaps"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
@@ -31,6 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
-        android:text="www.girdthysword.com" />
+        android:text="www.girdthyswordapp.com" />
 
 </LinearLayout>

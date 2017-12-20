@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.code.codemercenaries.girdthysword.HomeActivity">
@@ -50,6 +51,7 @@
         android:layout_marginBottom="83dp"
         android:layout_marginEnd="24dp"
         android:clickable="true"
+        android:focusable="auto"
         android:visibility="visible"
         app:fabSize="mini"
         app:layout_anchor="@+id/include"
@@ -64,6 +66,7 @@
         android:layout_marginBottom="130dp"
         android:layout_marginEnd="24dp"
         android:clickable="true"
+        android:focusable="auto"
         android:visibility="visible"
         app:fabSize="mini"
         app:layout_anchor="@+id/include"
@@ -75,17 +78,18 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="90dp"
             android:background="@color/colorSword"
             android:orientation="horizontal"></LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="145dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginEnd="70dp"
             android:orientation="vertical">
 
@@ -93,30 +97,29 @@
                 android:id="@+id/tv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom|end"
-                android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
-                android:gravity="right|center_vertical"
+                android:gravity="end|center_vertical"
                 android:text="@string/delete_section"
                 android:visibility="visible"
-                app:layout_anchor="@+id/include"
                 app:layout_anchorGravity="bottom|right" />
 
             <TextView
                 android:id="@+id/tv_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_delete"
+                android:layout_centerHorizontal="true"
                 android:layout_gravity="bottom|end"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_marginTop="25dp"
                 android:fadingEdge="vertical"
                 android:fontFamily="sans-serif-condensed"
-                android:gravity="right|center_vertical"
+                android:gravity="end|center_vertical"
                 android:text="@string/add_section"
                 android:visibility="visible"
-                app:layout_anchor="@+id/include"
                 app:layout_anchorGravity="bottom|right" />
-        </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 
     <include
